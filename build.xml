@@ -1,0 +1,74 @@
+<project default="build_jar">
+
+	<path id="classpath">
+		<pathelement location="./bin" />
+		<fileset dir="./lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+	
+	<path id="dep.runtime">
+	    <fileset dir="./lib">
+	        <include name="**/*.jar" />
+	    </fileset>
+	</path>
+	
+	<property name="dep_cp" value="${toString:dep.runtime}" />
+
+	<taskdef name="jrc" classname="net.sf.jasperreports.ant.JRAntCompileTask">
+		<classpath refid="classpath" />
+	</taskdef>
+
+
+	<target name="compile_reports">
+		<delete>
+			<fileset dir="./src/reports">
+				<include name="*.jasper" />
+			</fileset>
+		</delete>
+
+		<jrc 	srcdir="./src/reports" 
+				destdir="./src/reports" 
+				tempdir="./src/reports" 
+				keepjava="false" 
+				xmlvalidation="true">
+
+			<classpath refid="classpath" />
+			<include name="**/*.jrxml" />
+		</jrc>
+	</target>
+
+
+	<target name="build_jar" depends="compile_reports">
+		 <manifestclasspath property="manifest_cp" jarfile="myjar.jar">
+		        <classpath refid="dep.runtime" />
+		 </manifestclasspath>
+		
+		<echo message="Build Classpath: ${dep_cp}" />
+		    <echo message="Manifest Classpath: ${manifest_cp}" />
+		
+		<delete file="erfass2.jar"/>
+		<jar destfile="erfass2.jar">
+			<manifest>
+				<attribute name="Main-Class" 
+			            value="org.assist.Application"/>
+				<attribute name="Class-Path"  value="${manifest_cp}"/>
+				<!-- 
+				<attribute name="Class-Path"  value="lib/jasperreports-4.5.1.jar lib/mail.jar lib/poi.jar lib/itext.jar lib/commons-beanutils-1.8.0.jar lib/commons-collections-3.2.1.jar lib/commons-digester-1.7.jar lib/groovy-all-1.7.5.jar lib/commons-lang-2.5.jar lib/TableLayout.jar"/>
+			-->
+			</manifest>
+			<zipfileset dir="bin" excludes="**/*.jrxml">
+			</zipfileset>
+<!--
+			<zipfileset dir="." includes="lib\*.jar">
+						</zipfileset>
+						-->
+			<zipfileset dir="src" includes="**/*.jasper">
+			</zipfileset>
+		</jar>
+		<!-- 
+		-->
+		<copy file="erfass2.jar" todir="D:/dev/erf" overwrite="true"> </copy>
+	</target>
+
+</project>

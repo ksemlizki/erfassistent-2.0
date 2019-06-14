@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AccountSheet" language="groovy" pageWidth="595" pageHeight="842" columnWidth="525" leftMargin="50" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="ReportTitle" class="java.lang.String"/>
+	<parameter name="StartAmount" class="java.lang.Double"/>
+	<field name="docDate" class="java.util.Date"/>
+	<field name="docNumber" class="java.lang.String"/>
+	<field name="docText" class="java.lang.String"/>
+	<field name="account" class="java.lang.String">
+		<fieldDescription><![CDATA[Konto]]></fieldDescription>
+	</field>
+	<field name="taxKey" class="java.lang.String"/>
+	<field name="debit" class="java.lang.Double">
+		<fieldDescription><![CDATA[Soll]]></fieldDescription>
+	</field>
+	<field name="credit" class="java.lang.Double">
+		<fieldDescription><![CDATA[Haben]]></fieldDescription>
+	</field>
+	<field name="balance" class="java.lang.Double">
+		<fieldDescription><![CDATA[Bestand]]></fieldDescription>
+	</field>
+	<variable name="Sum1" class="java.lang.Double" resetType="Group" resetGroup="Group1" calculation="Sum">
+		<variableExpression><![CDATA[$F{debit}]]></variableExpression>
+	</variable>
+	<variable name="Sum2" class="java.lang.Double" resetType="Group" resetGroup="Group1" calculation="Sum">
+		<variableExpression><![CDATA[$F{credit}]]></variableExpression>
+	</variable>
+	<variable name="Sum3" class="java.lang.Double" resetType="Group" resetGroup="Group1">
+		<variableExpression><![CDATA[$F{balance}]]></variableExpression>
+	</variable>
+	<group name="Group1">
+		<groupFooter>
+			<band height="42">
+				<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement x="334" y="0" width="63" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+						<paragraph rightIndent="3"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Sum1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement x="461" y="20" width="64" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+						<paragraph rightIndent="3"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Sum3}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="0" y="41" width="525" height="1"/>
+				</line>
+				<line>
+					<reportElement x="0" y="20" width="513" height="1"/>
+				</line>
+				<line>
+					<reportElement x="0" y="0" width="1" height="42"/>
+				</line>
+				<line>
+					<reportElement x="333" y="0" width="1" height="20"/>
+				</line>
+				<line>
+					<reportElement x="397" y="0" width="1" height="20"/>
+				</line>
+				<line>
+					<reportElement x="460" y="0" width="1" height="41"/>
+				</line>
+				<line>
+					<reportElement x="525" y="0" width="1" height="41"/>
+				</line>
+				<staticText>
+					<reportElement x="1" y="0" width="100" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+						<paragraph leftIndent="2"/>
+					</textElement>
+					<text><![CDATA[Summe]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="2" y="22" width="100" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+						<paragraph leftIndent="2"/>
+					</textElement>
+					<text><![CDATA[Endbestand]]></text>
+				</staticText>
+				<line>
+					<reportElement x="70" y="31" width="353" height="1"/>
+				</line>
+				<line>
+					<reportElement x="70" y="11" width="246" height="1"/>
+				</line>
+				<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement x="399" y="1" width="61" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+						<paragraph rightIndent="3"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Sum2}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="69" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="34" width="524" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="34" width="1" height="35"/>
+			</line>
+			<line>
+				<reportElement x="525" y="34" width="1" height="35"/>
+			</line>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="8" y="41" width="129" height="20"/>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Anfangsbestand]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="461" y="41" width="64" height="20"/>
+				<textElement textAlignment="Right">
+					<paragraph rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{StartAmount}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="460" y="34" width="1" height="35"/>
+			</line>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="152" y="51" width="271" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="1" y="0" width="523" height="34"/>
+				<textElement textAlignment="Center">
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ReportTitle}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="1" y="0" width="523" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="20" width="523" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="0" width="45" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Datum]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="1" width="52" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+					<paragraph rightIndent="2"/>
+				</textElement>
+				<text><![CDATA[Beleg]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="102" y="1" width="153" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Vorgang]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="256" y="1" width="35" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[StSl]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="291" y="1" width="42" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Konto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="334" y="1" width="63" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Soll]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="398" y="1" width="63" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Haben]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="461" y="1" width="64" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bestand]]></text>
+			</staticText>
+			<line>
+				<reportElement x="45" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="100" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="255" y="1" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="291" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="333" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="397" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="460" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="525" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="1" height="20"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="0" width="44" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+					<paragraph rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{docDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="102" y="0" width="153" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{docText}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="256" y="0" width="35" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{taxKey}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="398" y="0" width="62" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+					<paragraph rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{credit}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="false">
+				<reportElement x="461" y="0" width="63" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+					<paragraph rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{balance}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="20" width="524" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="-1" width="1" height="22"/>
+			</line>
+			<line>
+				<reportElement x="45" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="100" y="0" width="1" height="20"/>
+			</line>
+			<textField>
+				<reportElement x="292" y="0" width="41" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{account}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="291" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="333" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="397" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="525" y="0" width="1" height="21"/>
+			</line>
+			<line>
+				<reportElement x="460" y="0" width="1" height="20"/>
+			</line>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="334" y="0" width="63" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+					<paragraph rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{debit}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="255" y="0" width="1" height="20"/>
+			</line>
+			<textField>
+				<reportElement x="47" y="1" width="52" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{docNumber}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="0" width="555" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

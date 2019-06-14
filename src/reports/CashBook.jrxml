@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CashBookSubReport" language="groovy" pageWidth="595" pageHeight="842" columnWidth="515" leftMargin="50" rightMargin="30" topMargin="30" bottomMargin="20">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="firmName" class="java.lang.String"/>
+	<field name="date" class="java.util.Date">
+		<fieldDescription><![CDATA[Datum]]></fieldDescription>
+	</field>
+	<field name="accountNr" class="java.lang.String">
+		<fieldDescription><![CDATA[Beleg]]></fieldDescription>
+	</field>
+	<field name="text" class="java.lang.String">
+		<fieldDescription><![CDATA[Vorgang]]></fieldDescription>
+	</field>
+	<field name="income" class="java.lang.Double">
+		<fieldDescription><![CDATA[Einnahmen]]></fieldDescription>
+	</field>
+	<field name="expence" class="java.lang.Double">
+		<fieldDescription><![CDATA[Ausgaben]]></fieldDescription>
+	</field>
+	<field name="balance" class="java.lang.Double">
+		<fieldDescription><![CDATA[Bestand]]></fieldDescription>
+	</field>
+	<field name="month" class="org.assist.domain.ReportMonth"/>
+	<variable name="Sum1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{income}]]></variableExpression>
+	</variable>
+	<variable name="Sum2" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{expence}]]></variableExpression>
+		<initialValueExpression><![CDATA[Double.valueOf(0.00)]]></initialValueExpression>
+	</variable>
+	<variable name="Sum3" class="java.lang.Double">
+		<variableExpression><![CDATA[$V{startAmount}+($V{Sum1} == null? 0 : $V{Sum1})-($V{Sum2} == null ? 0 : $V{Sum2})]]></variableExpression>
+	</variable>
+	<variable name="monthName" class="java.lang.String" resetType="Group" resetGroup="Group1">
+		<variableExpression><![CDATA[$F{month}.toString()]]></variableExpression>
+		<initialValueExpression><![CDATA[$F{month}.toString()]]></initialValueExpression>
+	</variable>
+	<variable name="startAmount" class="java.lang.Double" resetType="Group" resetGroup="Group1">
+		<variableExpression><![CDATA[$F{month}.getStartAmount()]]></variableExpression>
+		<initialValueExpression><![CDATA[$F{month}.getStartAmount()]]></initialValueExpression>
+	</variable>
+	<group name="Group1" isStartNewPage="true" isResetPageNumber="true" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{month}]]></groupExpression>
+		<groupHeader>
+			<band height="21">
+				<staticText>
+					<reportElement x="0" y="0" width="52" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Datum]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="53" y="0" width="68" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Beleg]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="121" y="0" width="158" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Vorgang]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="280" y="0" width="70" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Einnahmen]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="350" y="0" width="70" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Ausgaben]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="421" y="0" width="92" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Bestand]]></text>
+				</staticText>
+				<line>
+					<reportElement x="420" y="0" width="1" height="20"/>
+				</line>
+				<line>
+					<reportElement x="0" y="0" width="515" height="1"/>
+				</line>
+				<line>
+					<reportElement x="515" y="0" width="1" height="20"/>
+				</line>
+				<line>
+					<reportElement x="52" y="0" width="1" height="20"/>
+				</line>
+				<line>
+					<reportElement x="0" y="0" width="1" height="20"/>
+				</line>
+				<line>
+					<reportElement x="120" y="0" width="1" height="20"/>
+				</line>
+				<line>
+					<reportElement x="279" y="0" width="1" height="20"/>
+				</line>
+				<line>
+					<reportElement x="350" y="0" width="1" height="20"/>
+				</line>
+				<line>
+					<reportElement x="0" y="20" width="516" height="1"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50">
+				<staticText>
+					<reportElement x="1" y="0" width="71" height="20"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+						<paragraph leftIndent="20"/>
+					</textElement>
+					<text><![CDATA[Summe]]></text>
+				</staticText>
+				<line>
+					<reportElement x="279" y="0" width="1" height="20"/>
+				</line>
+				<line>
+					<reportElement x="0" y="20" width="515" height="1"/>
+				</line>
+				<line>
+					<reportElement x="0" y="40" width="516" height="1"/>
+				</line>
+				<staticText>
+					<reportElement x="0" y="21" width="100" height="20"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+						<paragraph leftIndent="20"/>
+					</textElement>
+					<text><![CDATA[Endbestand]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="0" width="1" height="40"/>
+				</line>
+				<line>
+					<reportElement x="515" y="0" width="1" height="40"/>
+				</line>
+				<line>
+					<reportElement x="420" y="0" width="1" height="40"/>
+				</line>
+				<line>
+					<reportElement x="92" y="10" width="166" height="1"/>
+				</line>
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement x="280" y="0" width="70" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<paragraph rightIndent="5"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Sum1}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="132" y="30" width="253" height="1"/>
+				</line>
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement x="350" y="0" width="70" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<paragraph rightIndent="5"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Sum2}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="350" y="0" width="1" height="20"/>
+				</line>
+				<line>
+					<reportElement x="0" y="20" width="516" height="1"/>
+				</line>
+				<textField pattern="#,##0.00">
+					<reportElement x="425" y="21" width="87" height="20"/>
+					<textElement textAlignment="Right">
+						<paragraph rightIndent="5"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Sum3}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="52">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER} == 1]]></printWhenExpression>
+			<staticText>
+				<reportElement x="53" y="0" width="115" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Kassenbericht]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="279" y="0" width="169" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{firmName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="32" width="121" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+					<paragraph leftIndent="20"/>
+				</textElement>
+				<text><![CDATA[Anfangsbestand]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="29" width="515" height="1"/>
+			</line>
+			<line>
+				<reportElement x="420" y="29" width="1" height="23"/>
+			</line>
+			<line>
+				<reportElement x="0" y="29" width="1" height="23"/>
+			</line>
+			<line>
+				<reportElement x="515" y="29" width="1" height="23"/>
+			</line>
+			<line>
+				<reportElement x="145" y="41" width="240" height="1"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="168" y="0" width="111" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{monthName}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="426" y="32" width="87" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="false"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{startAmount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="52" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="53" y="0" width="68" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{accountNr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="121" y="0" width="158" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{text}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="280" y="0" width="70" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{income}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="350" y="0" width="70" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{expence}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="420" y="0" width="1" height="20"/>
+			</line>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="421" y="0" width="92" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{balance}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="120" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="279" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="350" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="515" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="52" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="1" y="20" width="515" height="1"/>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="235" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
