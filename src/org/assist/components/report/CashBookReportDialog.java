@@ -71,7 +71,7 @@ public class CashBookReportDialog extends AbstractReportDialog {
 		add(endMonthCB, "1,3");
 		add(endYearCB, "2,3");
 		add(useEndDateChB, "3,3");
-		add(createButtonPanel(), "0,5,3,5");
+			add(createButtonPanel(), "0,5,3,5");
 		pack();
 		setLocationRelativeTo(getOwner());
 	}

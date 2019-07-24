@@ -24,13 +24,14 @@ import org.assist.tools.Tools;
 public class MainMenu extends JMenuBar implements ActionListener {
 
 	public enum Action {
-		NEW_FILE, INSERT_FILE, OPEN_TEXT, OPEN_EXCEL, SAVE_FILE_AS, SAVE_FILE, ACCOUNT_SHEET, CASH_BOOK, CLOSE_ALL, EXIT, OPEN_LEX_EXCEL, UNDO, REDO, COPY, CUT, PASTE, SELECT_ALL;
+		NEW_FILE, INSERT_FILE, OPEN_TEXT, OPEN_EXCEL, SAVE_FILE_AS, SAVE_FILE, ACCOUNT_SHEET, CASH_BOOK, CLOSE_ALL, EXIT, OPEN_LEX_EXCEL, UNDO, REDO, COPY, CUT, PASTE, SELECT_ALL, SPECIAL_REPLACE;
 	}
 
 	private static final Font FONT = new Font(null, Font.PLAIN, 12);
 	private JMenuItem saveMI;
 	private JMenuItem saveAsMI;
 	private JMenuItem insertMI;
+	private JMenuItem replaceTextMI;
 	private JMenuItem closeAll;
 	private JMenuItem accountSheetMI;
 	private JMenuItem cashBookMI;
@@ -125,6 +126,9 @@ public class MainMenu extends JMenuBar implements ActionListener {
 		});
 		selectAllMI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_MASK));
 		editMenu.add(selectAllMI);
+		editMenu.addSeparator();
+		replaceTextMI = createMenuItem("Ersetzen", Action.SPECIAL_REPLACE);
+		editMenu.add(replaceTextMI);
 
 		add(fileMenu);
 		add(editMenu);
@@ -276,6 +280,9 @@ public class MainMenu extends JMenuBar implements ActionListener {
 						cashBookReportDialog.setVisible(true);
 					}
 				});
+				break;
+			case SPECIAL_REPLACE:
+				selectedTab.specialReplace();
 				break;
 			default:
 				break;
